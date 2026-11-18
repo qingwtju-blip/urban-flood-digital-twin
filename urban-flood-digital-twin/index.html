@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>城市内涝水动力过程数字孪生 · Urban Flood Hydrodynamic Digital Twin</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 20c4-4 6 4 10 0s6 4 10 0' stroke='%2300d3ff' stroke-width='2.4' fill='none'/><path d='M4 26c4-4 6 4 10 0s6 4 10 0' stroke='%2300d3ff' stroke-width='2.4' fill='none' opacity='.5'/><circle cx='16' cy='9' r='4' fill='none' stroke='%2300d3ff' stroke-width='2'/></svg>">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="css/app.css?v=206">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo"><span></span><span></span><span></span></div>
+    <div class="brand-txt">
+      <h1>城市内涝水动力过程数字孪生</h1>
+      <p>URBAN FLOOD HYDRODYNAMIC DIGITAL TWIN &nbsp;·&nbsp; DEM 2D OVERLAND FLOW + ML SURROGATE</p>
+    </div>
+  </div>
+  <div class="top-meta">
+    <div class="meta-item"><label>计算域</label><b id="meta-domain">—</b></div>
+    <div class="meta-item"><label>网格分辨率</label><b id="meta-res">—</b></div>
+    <div class="meta-item"><label>演算步长</label><b id="meta-dt">—</b></div>
+    <div class="meta-item"><label>物理引擎耗时</label><b id="meta-cost">—</b></div>
+    <div class="meta-clock" id="clock">--:--:--</div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ============ 左：参数 ============ -->
+  <aside class="panel left">
+    <section class="p-sec">
+      <h3>① 选择城市 <small>City</small></h3>
+      <div class="city-search">
+        <input type="text" id="city-q" placeholder="搜索城市 / 拼音首字母" autocomplete="off">
+        <span class="city-count" id="city-count">—</span>
+      </div>
+      <div class="city-recent hide" id="city-recent">
+        <span class="cr-lab">最近</span>
+        <div class="city-grid mini" id="city-recent-grid"></div>
+      </div>
+      <div class="city-groups" id="city-groups"></div>
+      <div class="seg mini att" id="extent-toggle" style="margin-top:8px">
+        <button data-v="core" class="on">主城区</button>
+        <button data-v="all">全市域</button>
+      </div>
+    </section>
+
+    <section class="p-sec">
+      <h3>② 降雨情景 <small>Rainfall Scenario</small></h3>
+      <div class="seg" id="scn-mode">
+        <button data-v="design" class="on">设计暴雨</button>
+        <button data-v="event">历史场次</button>
+      </div>
+
+      <div id="scn-design">
+        <div class="row-lab">重现期 <b id="lab-p">50 年</b></div>
+        <div class="chips" id="p-chips"></div>
+        <div class="row-lab" style="margin-top:10px">降雨历时 <b id="lab-d">3 h</b></div>
+        <div class="chips" id="d-chips"></div>
+      </div>
+
+      <div id="scn-event" class="hide">
+        <div class="event-list" id="event-list"></div>
+      </div>
+
+      <div class="rain-box" id="rain-box"></div>
+
+      <div class="row-lab" style="margin-top:12px">降雨总量倍率 <b id="lab-f">1.00 ×</b></div>
+      <input type="range" id="f-range" min="60" max="200" value="100" step="5" class="rng">
+      <p class="tip">用于情景推演：1.0× 为设计/实测值，>1.0 为超标准情景</p>
+    </section>
+
+    <section class="p-sec">
+      <h3>③ 演算引擎 <small>Engine</small></h3>
+      <div class="seg" id="engine-toggle">
+        <button data-v="physics" class="on">水动力 CA</button>
+        <button data-v="ml">ML 代理</button>
+      </div>
+      <div id="ml-block" class="hide">
+        <select id="algo" class="sel">
+          <option value="gbdt">GBDT 梯度提升树</option>
+          <option value="rf">RF 随机森林</option>
+          <option value="xgb">XGBoost</option>
+          <option value="lgbm">LightGBM</option>
+          <option value="cat">CatBoost</option>
+        </select>
+        <div class="ml-params" id="ml-params"></div>
+        <p class="tip">代理模型学习「暴雨—地形—积水过程」映射，训练一次后可秒级推演任意情景</p>
+      </div>
+    </section>
+
+    <section class="p-sec">
+      <h3>④ 模型参数 · 率定 <small>Calibration</small></h3>
+      <div class="ml-params" id="hydro-params"></div>
+      <div class="cal-actions">
+        <button class="mini-btn" id="btn-cal-reset">恢复默认</button>
+        <button class="mini-btn" id="btn-cal-log">记录本组</button>
+      </div>
+      <div class="cal-log" id="cal-log"><p class="empty">改动参数后自动重算，点「记录本组」可比对效果</p></div>
+    </section>
+
+    <section class="p-sec">
+      <h3>⑤ 数据与模型 <small>Data</small></h3>
+      <ul class="data-list">
+        <li><i class="ok"></i>行政边界 · 阿里 DataV（GCJ-02，区县界）</li>
+        <li><i class="ok"></i>地形 DEM · Mapzen Terrarium ≈ 130 m</li>
+        <li><i class="ok"></i>新昌 DEM · Terrarium z12 ≈ 30 m（高精度）</li>
+        <li><i class="ok"></i>暴雨公式 · GB 50014 城市暴雨强度公式</li>
+        <li><i class="ok"></i>气象降雨 · 场次雨型 + GPM 空间分布约束</li>
+        <li><i class="ok"></i>管网能力 · 现状排水标准 + 覆盖度折减</li>
+        <li><i class="ok"></i>历史灾情 · 城市内涝事件库（含台风场次）</li>
+        <li><i class="est"></i>不透水率 / 城市化强度 · 卫星影像推定</li>
+      </ul>
+    </section>
+
+    <section class="p-sec">
+      <h3>⑥ 空天地融合校核 <small>Fusion</small></h3>
+      <p class="tip">天基/空基/地基多元数据协同，参数传递与精度验证闭环</p>
+      <button class="mini-btn wide" id="btn-fusion">打开融合分析</button>
+    </section>
+
+    <button class="btn-run" id="btn-run">开 始 演 算</button>
+  </aside>
+
+  <!-- ============ 中：地图 ============ -->
+  <section class="stage">
+    <div id="map"></div>
+
+    <div class="map-hud tl">
+      <div class="layer-tabs" id="layer-tabs">
+        <button data-v="depth" class="on">积水深度</button>
+        <button data-v="risk">风险分区</button>
+        <button data-v="maxd">最大淹没</button>
+        <button data-v="terrain">地形</button>
+      </div>
+      <div class="layer-tabs th" id="th-tabs">
+        <span class="th-lab">显示阈值</span>
+        <button data-v="0.05" class="on">5cm</button>
+        <button data-v="0.10">10cm</button>
+        <button data-v="0.15">15cm</button>
+        <button data-v="0.30">30cm</button>
+      </div>
+      <div class="layer-tabs" id="view-tabs">
+        <span class="th-lab">视野</span>
+        <button data-v="pond" class="on">聚焦积水区</button>
+        <button data-v="all">全域</button>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="map-hud tr">
+      <div class="stat-strip" id="stat-strip">
+        <div><label>模拟时刻</label><b id="s-t">0.0 h</b></div>
+        <div><label>雨强</label><b id="s-rain">0</b></div>
+        <div><label>积水面积</label><b id="s-area">0</b></div>
+        <div><label>最大水深</label><b id="s-max">0</b></div>
+      </div>
+    </div>
+
+    <div class="map-caption" id="map-caption">选择城市后开始演算</div>
+
+    <!-- 切换城市后的待演算提示 -->
+    <div class="fresh-hint hide" id="map-fresh"></div>
+
+    <!-- 点位过程线 -->
+    <div class="probe hide" id="probe">
+      <div class="probe-head">
+        <div>
+          <b id="probe-pos">—</b>
+          <span id="probe-meta"></span>
+        </div>
+        <button id="probe-close" title="关闭">×</button>
+      </div>
+      <div id="probe-chart"></div>
+      <div class="probe-foot" id="probe-foot"></div>
+    </div>
+
+    <!-- 时间轴 -->
+    <div class="timeline">
+      <button class="tl-btn" id="btn-play" title="播放/暂停">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      </button>
+      <button class="tl-btn" id="btn-reset" title="回到开始">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/></svg>
+      </button>
+      <button class="tl-btn peak" id="btn-peak" title="跳到积水峰值时刻">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 18l5-8 4 5 3-4 6 7z" fill="currentColor"/></svg>
+      </button>
+      <div class="tl-track">
+        <div class="tl-rain" id="tl-rain"></div>
+        <input type="range" id="tl-range" min="0" max="0" value="0" step="1">
+        <div class="tl-area" id="tl-area"></div>
+        <div class="tl-marks" id="tl-marks"></div>
+      </div>
+      <div class="tl-right">
+        <span id="tl-time">T + 0.0 h</span>
+        <span id="tl-peak" title="全过程积水面积峰值">峰 — km²</span>
+        <div class="seg mini" id="speed">
+          <button data-v="1" class="on">1×</button>
+          <button data-v="2">2×</button>
+          <button data-v="4">4×</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 右：结果 ============ -->
+  <aside class="panel right">
+    <section class="p-sec">
+      <h3>实时指标 <small>Live</small></h3>
+      <div class="kpi" id="kpi"></div>
+    </section>
+
+    <section class="p-sec">
+      <h3>风险构成 H-E-V <small>Risk</small></h3>
+      <div class="hev">
+        <div class="hev-row"><span>H 致灾</span><div class="bar"><i id="hv-h"></i></div><b id="hv-hv">0</b></div>
+        <div class="hev-row"><span>E 暴露</span><div class="bar"><i id="hv-e"></i></div><b id="hv-ev">0</b></div>
+        <div class="hev-row"><span>V 脆弱</span><div class="bar"><i id="hv-v"></i></div><b id="hv-vv">0</b></div>
+      </div>
+      <div class="risk-badge" id="risk-badge">—</div>
+    </section>
+
+    <section class="p-sec grow">
+      <h3>内涝问题点 <small>Hotspots</small></h3>
+      <div class="zone-list" id="zone-list"><p class="empty">演算后列出积水最深的片区</p></div>
+    </section>
+
+    <section class="p-sec" id="acc-sec">
+      <h3>代理模型 <small>Surrogate</small></h3>
+      <div class="acc-box" id="acc-box"><p class="empty">切换到 ML 代理后显示精度与加速比</p></div>
+    </section>
+  </aside>
+</main>
+
+<section class="charts">
+  <div class="chart"><div class="c-head"><h4>降雨过程 · 积水面积响应</h4><span>RAIN / AREA</span></div><div id="c-hydro" class="c-body"></div></div>
+  <div class="chart"><div class="c-head"><h4>积水体积 · 最大水深</h4><span>VOLUME / MAX DEPTH</span></div><div id="c-vol" class="c-body"></div></div>
+  <div class="chart"><div class="c-head"><h4>风险等级面积构成</h4><span>RISK AREA</span></div><div id="c-level" class="c-body"></div></div>
+  <div class="chart"><div class="c-head"><h4>问题点深度分布</h4><span>HOTSPOT DEPTH</span></div><div id="c-zone" class="c-body"></div></div>
+</section>
+
+<div class="overlay" id="overlay">
+  <div class="ov-box">
+    <div class="spin"></div>
+    <p id="ov-text">正在演算…</p>
+    <div class="ov-bar"><i id="ov-bar"></i></div>
+  </div>
+</div>
+
+<!-- ============ 空天地融合校核 模态框 ============ -->
+<div class="fmodal" id="fusion-modal">
+  <div class="fm-box">
+    <div class="fm-head">
+      <div>
+        <h2>空天地多元数据融合 · 模型校核</h2>
+        <p>SPACE–AIR–GROUND MULTISOURCE DATA FUSION &amp; VALIDATION</p>
+      </div>
+      <button id="fs-close" title="关闭">×</button>
+    </div>
+    <div class="fm-body">
+      <div class="fm-grid">
+        <div class="fm-col">
+          <h4>① 协同框架 <small>Framework</small></h4>
+          <div id="fs-diagram"></div>
+        </div>
+        <div class="fm-col">
+          <h4>② 多元数据源 <small>Sources</small></h4>
+          <div class="fs-src" id="fs-sources"></div>
+          <div class="fs-meta">
+            <span id="fs-city">—</span><span id="fs-dem">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="fm-grid">
+        <div class="fm-col">
+          <h4>③ 融合校核结果 <small>Baseline vs Fused</small></h4>
+          <div id="fs-result"><p class="fs-note">点击「运行融合校核」开始：以历史积水参考集为约束，率定多源融合参数并评价精度提升。</p></div>
+        </div>
+        <div class="fm-col">
+          <h4>④ 精度提升对比 <small>Accuracy Gain</small></h4>
+          <div id="fs-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fm-foot">
+      <div class="fm-prog"><i id="fs-bar"></i></div>
+      <span id="fs-status">待运行</span>
+      <div class="fm-btns">
+        <button class="hide" id="fs-apply">应用融合参数到平台</button>
+        <button id="fs-run" class="primary">运行融合校核</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script src="js/ml.js?v=201"></script>
+<script src="js/hydro.js?v=201"></script>
+<script src="js/app.js?v=212"></script>
+<script src="js/fusion.js?v=203"></script>
+</body>
+</html>

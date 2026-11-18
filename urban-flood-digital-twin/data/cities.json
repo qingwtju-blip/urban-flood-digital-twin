@@ -1,0 +1,982 @@
+{
+ "cities": [
+  {
+   "id": "beijing",
+   "name_zh": "北京",
+   "name_en": "Beijing",
+   "province": "北京",
+   "region": "华北",
+   "tier": 1,
+   "lat": 39.904,
+   "lon": 116.407,
+   "bbox": [
+    116.157,
+    39.704,
+    116.657,
+    40.104
+   ],
+   "area_km2": 16410,
+   "pop_wan": 2186,
+   "avg_rain_mm": 570,
+   "flood_season": [
+    6,
+    9
+   ],
+   "terrain": {
+    "base_elev": 43,
+    "relief": 95,
+    "slope_dir": 315,
+    "lowland_ratio": 0.2
+   },
+   "drain": {
+    "design_return": 3,
+    "capacity_mm_h": 40,
+    "coverage": 0.88,
+    "pipe_age": 22
+   },
+   "impervious": 0.72,
+   "storm": {
+    "A": 11.98,
+    "C": 0.811,
+    "b": 8.0,
+    "n": 0.711,
+    "src": "std"
+   },
+   "soil": "C",
+   "events": [
+    {
+     "date": "2023-07-31",
+     "name": "海河流域特大暴雨",
+     "lat": 39.9042,
+     "lon": 116.4074,
+     "max_rainfall": 111.8,
+     "total_rainfall": 744.8,
+     "severity": "extreme"
+    }
+   ],
+   "events_by_year": {
+    "2019": 1,
+    "2020": 1,
+    "2021": 1,
+    "2022": 1,
+    "2023": 8,
+    "2024": 1,
+    "2025": 1,
+    "2026": 2
+   },
+   "adcode": 110000,
+   "built_km2": 1469.0,
+   "bbox_real": [
+    115.4234,
+    39.4428,
+    117.5146,
+    41.0608
+   ],
+   "center": [
+    116.469,
+    40.2518
+   ],
+   "dem_bbox": [
+    115.37509,
+    39.409161,
+    117.549877,
+    41.091428
+   ],
+   "dem_range": [
+    -4.6,
+    2227.6
+   ],
+   "core_km": 61,
+   "core_bbox": [
+    116.04984,
+    39.62808,
+    116.76416,
+    40.17992
+   ],
+   "core_dem_range": [
+    9.9,
+    1261.1
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "shanghai",
+   "name_zh": "上海",
+   "name_en": "Shanghai",
+   "province": "上海",
+   "region": "华东",
+   "tier": 1,
+   "lat": 31.23,
+   "lon": 121.474,
+   "bbox": [
+    121.224,
+    31.03,
+    121.724,
+    31.43
+   ],
+   "area_km2": 6340,
+   "pop_wan": 2487,
+   "avg_rain_mm": 1160,
+   "flood_season": [
+    6,
+    9
+   ],
+   "terrain": {
+    "base_elev": 4,
+    "relief": 16,
+    "slope_dir": 90,
+    "lowland_ratio": 0.48
+   },
+   "drain": {
+    "design_return": 3,
+    "capacity_mm_h": 42,
+    "coverage": 0.9,
+    "pipe_age": 18
+   },
+   "impervious": 0.78,
+   "storm": {
+    "A": 9.58,
+    "C": 0.846,
+    "b": 7.0,
+    "n": 0.656,
+    "src": "std"
+   },
+   "soil": "C",
+   "events": [
+    {
+     "date": "2025-07-05",
+     "name": "台风普拉桑",
+     "lat": 31.2304,
+     "lon": 121.4737,
+     "max_rainfall": 78.0,
+     "total_rainfall": 180.0,
+     "severity": "high"
+    }
+   ],
+   "events_by_year": {
+    "2019": 3,
+    "2020": 2,
+    "2021": 2,
+    "2022": 2,
+    "2023": 3,
+    "2024": 3,
+    "2025": 6,
+    "2026": 3
+   },
+   "adcode": 310000,
+   "built_km2": 1238.0,
+   "bbox_real": [
+    120.8568,
+    30.6756,
+    122.2471,
+    31.8725
+   ],
+   "center": [
+    121.55195,
+    31.27405
+   ],
+   "dem_bbox": [
+    120.824847,
+    30.654151,
+    122.270635,
+    31.898368
+   ],
+   "dem_range": [
+    -17.4,
+    71.3
+   ],
+   "core_km": 56,
+   "core_bbox": [
+    121.17985,
+    30.9767,
+    121.76815,
+    31.4833
+   ],
+   "core_dem_range": [
+    -20.3,
+    87.7
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "guangzhou",
+   "name_zh": "广州",
+   "name_en": "Guangzhou",
+   "province": "广东",
+   "region": "华南",
+   "tier": 1,
+   "lat": 23.129,
+   "lon": 113.264,
+   "bbox": [
+    113.014,
+    22.929,
+    113.514,
+    23.329
+   ],
+   "area_km2": 7434,
+   "pop_wan": 1882,
+   "avg_rain_mm": 1730,
+   "flood_season": [
+    4,
+    9
+   ],
+   "terrain": {
+    "base_elev": 20,
+    "relief": 130,
+    "slope_dir": 100,
+    "lowland_ratio": 0.3
+   },
+   "drain": {
+    "design_return": 5,
+    "capacity_mm_h": 46,
+    "coverage": 0.85,
+    "pipe_age": 15
+   },
+   "impervious": 0.7,
+   "storm": {
+    "A": 21.67,
+    "C": 0.438,
+    "b": 11.26,
+    "n": 0.75,
+    "src": "std"
+   },
+   "soil": "C",
+   "events": [
+    {
+     "date": "2025-05-22",
+     "name": "龙舟水暴雨",
+     "lat": 23.1291,
+     "lon": 113.2644,
+     "max_rainfall": 72.5,
+     "total_rainfall": 220.0,
+     "severity": "high"
+    }
+   ],
+   "events_by_year": {
+    "2019": 4,
+    "2020": 3,
+    "2021": 4,
+    "2022": 5,
+    "2023": 6,
+    "2024": 5,
+    "2025": 6,
+    "2026": 4
+   },
+   "adcode": 440100,
+   "built_km2": 1350.0,
+   "bbox_real": [
+    112.9585,
+    22.5144,
+    114.06,
+    23.9329
+   ],
+   "center": [
+    113.50925,
+    23.22365
+   ],
+   "dem_bbox": [
+    112.93138,
+    22.489031,
+    114.076818,
+    23.963784
+   ],
+   "dem_range": [
+    -50.0,
+    1217.3
+   ],
+   "core_km": 59,
+   "core_bbox": [
+    112.97584,
+    22.86213,
+    113.55216,
+    23.39587
+   ],
+   "core_dem_range": [
+    -48.4,
+    507.1
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "shenzhen",
+   "name_zh": "深圳",
+   "name_en": "Shenzhen",
+   "province": "广东",
+   "region": "华南",
+   "tier": 1,
+   "lat": 22.543,
+   "lon": 114.058,
+   "bbox": [
+    113.808,
+    22.343,
+    114.308,
+    22.743
+   ],
+   "area_km2": 1997,
+   "pop_wan": 1766,
+   "avg_rain_mm": 1930,
+   "flood_season": [
+    4,
+    9
+   ],
+   "terrain": {
+    "base_elev": 30,
+    "relief": 190,
+    "slope_dir": 45,
+    "lowland_ratio": 0.26
+   },
+   "drain": {
+    "design_return": 5,
+    "capacity_mm_h": 48,
+    "coverage": 0.86,
+    "pipe_age": 12
+   },
+   "impervious": 0.72,
+   "storm": {
+    "A": 22.19,
+    "C": 0.45,
+    "b": 11.0,
+    "n": 0.75,
+    "src": "est"
+   },
+   "soil": "C",
+   "events": [
+    {
+     "date": "2023-09-07",
+     "name": "9·7极端暴雨",
+     "lat": 22.5431,
+     "lon": 114.0579,
+     "max_rainfall": 142.2,
+     "total_rainfall": 465.5,
+     "severity": "extreme"
+    }
+   ],
+   "events_by_year": {
+    "2019": 4,
+    "2020": 4,
+    "2021": 5,
+    "2022": 5,
+    "2023": 11,
+    "2024": 5,
+    "2025": 4,
+    "2026": 5
+   },
+   "adcode": 440300,
+   "built_km2": 973.0,
+   "bbox_real": [
+    113.7515,
+    22.3963,
+    114.6285,
+    22.8617
+   ],
+   "center": [
+    114.19,
+    22.629
+   ],
+   "dem_bbox": [
+    113.728795,
+    22.389855,
+    114.641535,
+    22.873959
+   ],
+   "dem_range": [
+    -50.0,
+    935.5
+   ],
+   "core_km": 50,
+   "core_bbox": [
+    113.81484,
+    22.31684,
+    114.30116,
+    22.76916
+   ],
+   "core_dem_range": [
+    -50.0,
+    944.0
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "chengdu",
+   "name_zh": "成都",
+   "name_en": "Chengdu",
+   "province": "四川",
+   "region": "西南",
+   "tier": 2,
+   "lat": 30.572,
+   "lon": 104.066,
+   "bbox": [
+    103.816,
+    30.372,
+    104.316,
+    30.772
+   ],
+   "area_km2": 14335,
+   "pop_wan": 2126,
+   "avg_rain_mm": 900,
+   "flood_season": [
+    6,
+    9
+   ],
+   "terrain": {
+    "base_elev": 500,
+    "relief": 130,
+    "slope_dir": 110,
+    "lowland_ratio": 0.28
+   },
+   "drain": {
+    "design_return": 3,
+    "capacity_mm_h": 36,
+    "coverage": 0.8,
+    "pipe_age": 22
+   },
+   "impervious": 0.62,
+   "storm": {
+    "A": 8.6,
+    "C": 0.7,
+    "b": 9.0,
+    "n": 0.68,
+    "src": "est"
+   },
+   "soil": "C",
+   "events": [],
+   "events_by_year": {
+    "2019": 2,
+    "2020": 2,
+    "2021": 2,
+    "2022": 2,
+    "2023": 2,
+    "2024": 3,
+    "2025": 2,
+    "2026": 2
+   },
+   "adcode": 510100,
+   "built_km2": 1032.0,
+   "bbox_real": [
+    102.9929,
+    30.0896,
+    104.8974,
+    31.4351
+   ],
+   "center": [
+    103.94515,
+    30.76235
+   ],
+   "dem_bbox": [
+    102.953043,
+    30.065419,
+    104.932731,
+    31.464387
+   ],
+   "dem_range": [
+    325.1,
+    5657.2
+   ],
+   "core_km": 51,
+   "core_bbox": [
+    103.79995,
+    30.34131,
+    104.33205,
+    30.80269
+   ],
+   "core_dem_range": [
+    424.6,
+    1036.9
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "hangzhou",
+   "name_zh": "杭州",
+   "name_en": "Hangzhou",
+   "province": "浙江",
+   "region": "华东",
+   "tier": 2,
+   "lat": 30.274,
+   "lon": 120.155,
+   "bbox": [
+    119.905,
+    30.074,
+    120.405,
+    30.474
+   ],
+   "area_km2": 16850,
+   "pop_wan": 1240,
+   "avg_rain_mm": 1450,
+   "flood_season": [
+    5,
+    9
+   ],
+   "terrain": {
+    "base_elev": 10,
+    "relief": 160,
+    "slope_dir": 250,
+    "lowland_ratio": 0.34
+   },
+   "drain": {
+    "design_return": 3,
+    "capacity_mm_h": 40,
+    "coverage": 0.82,
+    "pipe_age": 20
+   },
+   "impervious": 0.65,
+   "storm": {
+    "A": 11.2,
+    "C": 0.75,
+    "b": 10.0,
+    "n": 0.7,
+    "src": "est"
+   },
+   "soil": "C",
+   "events": [],
+   "events_by_year": {
+    "2019": 3,
+    "2020": 4,
+    "2021": 4,
+    "2022": 4,
+    "2023": 3,
+    "2024": 3,
+    "2025": 4,
+    "2026": 4
+   },
+   "adcode": 330100,
+   "built_km2": 866.0,
+   "bbox_real": [
+    118.345,
+    29.1888,
+    120.7219,
+    30.5665
+   ],
+   "center": [
+    119.53345,
+    29.87765
+   ],
+   "dem_bbox": [
+    118.292272,
+    29.163893,
+    120.765166,
+    30.596444
+   ],
+   "dem_range": [
+    -50.0,
+    1882.0
+   ],
+   "core_km": 47,
+   "core_bbox": [
+    119.91056,
+    30.06141,
+    120.39944,
+    30.48659
+   ],
+   "core_dem_range": [
+    -50.0,
+    499.9
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "wuhan",
+   "name_zh": "武汉",
+   "name_en": "Wuhan",
+   "province": "湖北",
+   "region": "华中",
+   "tier": 2,
+   "lat": 30.593,
+   "lon": 114.306,
+   "bbox": [
+    114.056,
+    30.393,
+    114.556,
+    30.793
+   ],
+   "area_km2": 8569,
+   "pop_wan": 1374,
+   "avg_rain_mm": 1310,
+   "flood_season": [
+    5,
+    8
+   ],
+   "terrain": {
+    "base_elev": 23,
+    "relief": 62,
+    "slope_dir": 150,
+    "lowland_ratio": 0.44
+   },
+   "drain": {
+    "design_return": 3,
+    "capacity_mm_h": 37,
+    "coverage": 0.78,
+    "pipe_age": 26
+   },
+   "impervious": 0.63,
+   "storm": {
+    "A": 9.3,
+    "C": 0.75,
+    "b": 10.0,
+    "n": 0.72,
+    "src": "est"
+   },
+   "soil": "C",
+   "events": [
+    {
+     "date": "2024-06-24",
+     "name": "梅雨季暴雨",
+     "lat": 30.5928,
+     "lon": 114.3055,
+     "max_rainfall": 68.0,
+     "total_rainfall": 320.0,
+     "severity": "high"
+    }
+   ],
+   "events_by_year": {
+    "2019": 4,
+    "2020": 4,
+    "2021": 3,
+    "2022": 2,
+    "2023": 3,
+    "2024": 7,
+    "2025": 4,
+    "2026": 4
+   },
+   "adcode": 420100,
+   "built_km2": 885.0,
+   "bbox_real": [
+    113.7023,
+    29.9691,
+    115.0824,
+    31.3613
+   ],
+   "center": [
+    114.39235,
+    30.6652
+   ],
+   "dem_bbox": [
+    113.66899,
+    29.943863,
+    115.104424,
+    31.391013
+   ],
+   "dem_range": [
+    -50.0,
+    994.0
+   ],
+   "core_km": 48,
+   "core_bbox": [
+    114.05554,
+    30.37588,
+    114.55646,
+    30.81012
+   ],
+   "core_dem_range": [
+    -40.0,
+    213.5
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "xian",
+   "name_zh": "西安",
+   "name_en": "Xi'an",
+   "province": "陕西",
+   "region": "西北",
+   "tier": 2,
+   "lat": 34.341,
+   "lon": 108.94,
+   "bbox": [
+    108.69,
+    34.141,
+    109.19,
+    34.541
+   ],
+   "area_km2": 10108,
+   "pop_wan": 1316,
+   "avg_rain_mm": 600,
+   "flood_season": [
+    7,
+    9
+   ],
+   "terrain": {
+    "base_elev": 400,
+    "relief": 85,
+    "slope_dir": 350,
+    "lowland_ratio": 0.2
+   },
+   "drain": {
+    "design_return": 2,
+    "capacity_mm_h": 32,
+    "coverage": 0.74,
+    "pipe_age": 28
+   },
+   "impervious": 0.6,
+   "storm": {
+    "A": 10.6,
+    "C": 0.75,
+    "b": 10.0,
+    "n": 0.72,
+    "src": "est"
+   },
+   "soil": "C",
+   "events": [],
+   "events_by_year": {
+    "2019": 1,
+    "2020": 1,
+    "2021": 2,
+    "2022": 2,
+    "2023": 2,
+    "2024": 1,
+    "2025": 1,
+    "2026": 1
+   },
+   "adcode": 610100,
+   "built_km2": 700.0,
+   "bbox_real": [
+    107.6644,
+    33.694,
+    109.8222,
+    34.7429
+   ],
+   "center": [
+    108.7433,
+    34.21845
+   ],
+   "dem_bbox": [
+    107.616631,
+    33.674749,
+    109.860197,
+    34.765036
+   ],
+   "dem_range": [
+    333.0,
+    3704.3
+   ],
+   "core_km": 42,
+   "core_bbox": [
+    108.71153,
+    34.15102,
+    109.16847,
+    34.53098
+   ],
+   "core_dem_range": [
+    347.0,
+    819.5
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "nanjing",
+   "name_zh": "南京",
+   "name_en": "Nanjing",
+   "province": "江苏",
+   "region": "华东",
+   "tier": 2,
+   "lat": 32.06,
+   "lon": 118.796,
+   "bbox": [
+    118.546,
+    31.86,
+    119.046,
+    32.26
+   ],
+   "area_km2": 6587,
+   "pop_wan": 949,
+   "avg_rain_mm": 1106,
+   "flood_season": [
+    5,
+    9
+   ],
+   "terrain": {
+    "base_elev": 12,
+    "relief": 115,
+    "slope_dir": 200,
+    "lowland_ratio": 0.32
+   },
+   "drain": {
+    "design_return": 3,
+    "capacity_mm_h": 38,
+    "coverage": 0.8,
+    "pipe_age": 25
+   },
+   "impervious": 0.66,
+   "storm": {
+    "A": 9.96,
+    "C": 0.72,
+    "b": 12.0,
+    "n": 0.72,
+    "src": "std"
+   },
+   "soil": "C",
+   "events": [],
+   "events_by_year": {
+    "2019": 2,
+    "2020": 2,
+    "2021": 3,
+    "2022": 3,
+    "2023": 3,
+    "2024": 2,
+    "2025": 2,
+    "2026": 3
+   },
+   "adcode": 320100,
+   "built_km2": 868.0,
+   "bbox_real": [
+    118.3634,
+    31.2281,
+    119.2417,
+    32.6144
+   ],
+   "center": [
+    118.80255,
+    31.92125
+   ],
+   "dem_bbox": [
+    118.340452,
+    31.202283,
+    119.25395,
+    32.644145
+   ],
+   "dem_range": [
+    -50.0,
+    421.0
+   ],
+   "core_km": 47,
+   "core_bbox": [
+    118.54691,
+    31.84741,
+    119.04509,
+    32.27259
+   ],
+   "core_dem_range": [
+    -50.0,
+    428.4
+   ],
+   "has_core_dem": true
+  },
+  {
+   "id": "xinchang",
+   "name_zh": "新昌",
+   "name_en": "Xinchang",
+   "province": "浙江",
+   "region": "华东",
+   "tier": 9,
+   "lat": 29.502,
+   "lon": 120.903,
+   "bbox": [
+    120.653,
+    29.302,
+    121.153,
+    29.702
+   ],
+   "area_km2": 1213,
+   "pop_wan": 38.5,
+   "avg_rain_mm": 1450,
+   "flood_season": [
+    5,
+    9
+   ],
+   "terrain": {
+    "base_elev": 100,
+    "relief": 600,
+    "slope_dir": 110,
+    "lowland_ratio": 0.1
+   },
+   "drain": {
+    "design_return": 2,
+    "capacity_mm_h": 26,
+    "coverage": 0.62,
+    "pipe_age": 18
+   },
+   "impervious": 0.42,
+   "storm": {
+    "A": 13.5,
+    "C": 0.62,
+    "b": 11.5,
+    "n": 0.73,
+    "src": "est"
+   },
+   "soil": "B",
+   "events": [
+    {
+     "date": "2021-07-25",
+     "name": "台风烟花 In-Fa",
+     "lat": 29.5017,
+     "lon": 120.9028,
+     "max_rainfall": 65.0,
+     "total_rainfall": 310.0,
+     "severity": "extreme"
+    },
+    {
+     "date": "2019-08-10",
+     "name": "台风利奇马 Lekima",
+     "lat": 29.5017,
+     "lon": 120.9028,
+     "max_rainfall": 55.0,
+     "total_rainfall": 235.0,
+     "severity": "high"
+    },
+    {
+     "date": "2024-06-20",
+     "name": "梅雨持续强降雨",
+     "lat": 29.5017,
+     "lon": 120.9028,
+     "max_rainfall": 42.0,
+     "total_rainfall": 178.0,
+     "severity": "high"
+    }
+   ],
+   "events_by_year": {
+    "2019": 2,
+    "2020": 1,
+    "2021": 3,
+    "2022": 2,
+    "2023": 2,
+    "2024": 3,
+    "2025": 2,
+    "2026": 2
+   },
+   "adcode": 330624,
+   "built_km2": 38.0,
+   "bbox_real": [
+    120.6993,
+    29.2251,
+    121.2315,
+    29.5568
+   ],
+   "center": [
+    120.9654,
+    29.39095
+   ],
+   "dem_bbox": [
+    120.684508,
+    29.221226,
+    121.237848,
+    29.565938
+   ],
+   "dem_range": [
+    16.7,
+    1089.2
+   ],
+   "core_km": 26,
+   "core_bbox": [
+    120.76882,
+    29.3844,
+    121.03718,
+    29.6196
+   ],
+   "core_dem_range": [
+    9.8,
+    886.3
+   ],
+   "has_core_dem": true
+  }
+ ],
+ "regions": [
+  "华北",
+  "东北",
+  "华东",
+  "华中",
+  "华南",
+  "西南",
+  "西北"
+ ],
+ "built": "2026-11-12 15:46"
+}
